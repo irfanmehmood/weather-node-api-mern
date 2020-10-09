@@ -21,7 +21,39 @@ const redisGetAsync = promisify(redisClient.get).bind(redisClient);
  * Promised Async await, Exported externally 
  * Either gets data from Redis cacahe or if not available gets it from External API via getCountryDataFromExternalAPIPromised*/
 module.exports = {
-    getData: async (countryID, browserResponse) => {
+    getMatchedCities: (country, browserResponse) => {
+
+        /* Mongo client to connect to our DB */
+        var mongoClient = require('mongodb').MongoClient;
+
+        /** Table/Collection name */
+        var tableCollection = 'City';
+
+        mongoClient.connect(process.env.MONGO_CONNECTION_STRING, { 
+            useNewUrlParser: true,  
+            useUnifiedTopology: true 
+          }, function(err, db) {
+        
+              if (err) throw err;
+        
+              /* Database */
+              let dbo = db.db(process.env.MONGO_DB_NAME);
+
+              var query_regex = {name: new RegExp( country , 'i')} ;
+        
+              dbo.collection(tableCollection)
+                .find(query_regex)
+                .limit(10)
+                .toArray(function(err, result) {
+                          if (err) throw err;
+                          browserResponse.end(JSON.stringify(result));
+                          db.close();
+                        }
+                );
+        
+            });
+    },
+    getCityWeatherData: async (countryID, browserResponse) => {
         try {
 
             //console.log(`${API_URL}weather?id=${countryID}&appid=${API_KEY}`);

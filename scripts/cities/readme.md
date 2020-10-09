@@ -1,1 +1,0 @@
-city.list.json This list comes from the  https://openweathermap.org/
