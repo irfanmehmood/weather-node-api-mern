@@ -1,3 +1,16 @@
-/* Automates running the script/server */
+#install
+npm install
+
+#run
+node run.js
+
+#test api example
+EastLondonID=1006984
+https://api.openweathermap.org/data/2.5/weather?id=1006984&appid=API_KEY
+
+#show cities from json
+node .\scripts\cities\list_cities.js
+
+#Automates running the script/server
 sudo npm install -g forever
 forever start run.js
