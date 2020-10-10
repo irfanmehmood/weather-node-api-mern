@@ -13,17 +13,12 @@ MONGO_CONNECTION_STRING_WITH_AUTH=mongodb://user:pass@localhost:27017/weather_db
 MONGO_DB_NAME=weather_db
 SERVER_PORT=3000
 
-#Setup database script
-node ./scripts/setup/setup.js
+#Creates databse and Import city.list.json into City collection
+cd scripts/setup
+sudo mongoimport --db weather_db --collection City --jsonArray --file city.list.json
 
-#Import city.list.json
-
-#run webserver
-node run.js
-
-#Automates running the script/server
-sudo npm install -g forever
-forever start run.js
+#run webserver in the background
+sudo node run.js &
 
 #Test api example
 EastLondonID=1006984
