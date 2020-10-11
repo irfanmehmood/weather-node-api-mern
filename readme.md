@@ -20,6 +20,15 @@ sudo mongoimport --db weather_db --collection City --jsonArray --file city.list.
 #run webserver in the background
 sudo node run.js &
 
+#Find list of all node process ids
+ps aux | grep node
+
+#Kil single node process
+sudo kill -9 24396
+
+#Kill all node process
+sudo killall -9 node
+
 #Test api example
 EastLondonID=1006984
 https://api.openweathermap.org/data/2.5/weather?id=1006984&appid=API_KEY
