@@ -24,9 +24,8 @@ router.all('*', function(request, response, next) {
 
 /* This will handle routes without an Endpoint */
 router.get(['/', '/api','/api/city', '/api/city/weather/'] , function (request, response) {
-  let msg = "Missing an endpoint. \n\nExamples\n";
-  msg += "/api/city/weather/1006984\n";
-  msg += "/api/city/find/lon";
+  let msg = "weather.digitalcook.co.uk:8001/api/city/weather/2950159\n";
+  msg += "weather.digitalcook.co.uk:8001/api/city/find/london";
   response.end(msg);
 });
 
